@@ -12,6 +12,7 @@ BuildRequires:  pkgconfig(QtGui)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  mapplauncherd-devel >= 4.0.0
 Requires:  jollacomponents
+Requires:  mapplauncherd >= 4.0.0
 
 %description
 Applauncherd booster plugin for Jolla Components applications
