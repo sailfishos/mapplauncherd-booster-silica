@@ -4,6 +4,9 @@ import com.jolla.components 1.0
 ApplicationWindow {
     BackgroundItem { }
     Button { }
+    JollaFlickable {
+        PullDownMenu { } // creates HighlightFeedback.qml and initializes sampleCache
+    }
     Label { }
     PageHeader { }
     Slider { }
@@ -18,10 +21,8 @@ ApplicationWindow {
             ComboBox { }
             ContextMenu { }
             Dialog { }
-            JollaFlickable { }
             JollaListView {
                 ScrollDecorator { }
-                PullDownMenu { }
                 PushUpMenu { }
             }
             MenuItem { }
