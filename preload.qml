@@ -4,21 +4,29 @@ import com.jolla.components 1.0
 ApplicationWindow {
     BackgroundItem { }
     Button { }
-    ContextMenu { }
-    Dialog { }
-    JollaListView {
-        ScrollDecorator { }
-        ScrollBar { }
-    }
     Label { }
-    MenuItem { }
-    Page { }
     PageHeader { }
-    PullDownMenu { }
-    PushUpMenu { }
     Slider { }
     Switch { }
     TextArea { }
     TextField { }
-    ToolIcon { }
+    Component {
+        // These will be compiled but not instantiated.
+        // If instantiation won't result in further caching then place those
+        // components here.
+        Item {
+            ComboBox { }
+            ContextMenu { }
+            Dialog { }
+            JollaFlickable { }
+            JollaListView {
+                ScrollDecorator { }
+                PullDownMenu { }
+                PushUpMenu { }
+            }
+            MenuItem { }
+            Page { }
+            ToolIcon { }
+        }
+    }
 }
