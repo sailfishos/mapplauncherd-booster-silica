@@ -1,10 +1,10 @@
 import QtQuick 1.1
-import com.jolla.components 1.0
+import Sailfish.Silica 1.0
 
 ApplicationWindow {
     BackgroundItem { }
     Button { }
-    JollaFlickable {
+    SilicaFlickable {
         PullDownMenu { } // creates HighlightFeedback.qml and initializes sampleCache
     }
     Label { }
@@ -21,7 +21,7 @@ ApplicationWindow {
             ComboBox { }
             ContextMenu { }
             Dialog { }
-            JollaListView {
+            SilicaListView {
                 ScrollDecorator { }
                 PushUpMenu { }
             }
