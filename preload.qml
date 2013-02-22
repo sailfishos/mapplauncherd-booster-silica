@@ -20,14 +20,25 @@ ApplicationWindow {
         Item {
             ComboBox { }
             ContextMenu { }
-            Dialog { }
+            CoverBackground { }
+            CoverPlaceholder { }
+            DatePicker { }
+            Dialog {
+                DialogHeader { }
+            }
+            IconButton { }
             SilicaListView {
                 ScrollDecorator { }
                 PushUpMenu { }
             }
             MenuItem { }
             Page { }
-            ToolIcon { }
+            RemorseItem { }
+            RemorsePopup { }
+            SearchField { }
+            SectionHeader { }
+            TextSwitch { }
+            ViewPlaceholder { }
         }
     }
 }
