@@ -8,10 +8,11 @@ qml.path = /usr/share/jollabooster/
 qml.files = preload.qml
 INSTALLS += target qml
 
-LIBS += -lmdeclarativecache
+CONFIG += qdeclarative-boostable
+LIBS += -lapplauncherd
 INCLUDEPATH += /usr/include/applauncherd/
 
-SOURCES += jollabooster.cpp pluginfactory.cpp
-HEADERS += jollabooster.h
+SOURCES += jollabooster.cpp pluginfactory.cpp eventhandler.cpp
+HEADERS += jollabooster.h eventhandler.h
 OTHER_FILES += preload.qml
 

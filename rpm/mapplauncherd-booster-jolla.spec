@@ -11,6 +11,7 @@ BuildRequires:  pkgconfig(QtDeclarative)
 BuildRequires:  pkgconfig(QtGui)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  mapplauncherd-devel >= 4.0.0
+BuildRequires:  pkgconfig(qdeclarative-boostable)
 Requires:  sailfishsilica
 Requires:  mapplauncherd >= 4.0.0
 
