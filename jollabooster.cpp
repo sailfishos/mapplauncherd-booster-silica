@@ -24,36 +24,14 @@
 #include "jollabooster.h"
 #include "mdeclarativecache.h"
 #include "connection.h"
-
-#define PROG_NAME_LAUNCHER "applauncherd"
 #include "logger.h"
+#include "daemon.h"
 
-const string JollaBooster::m_socketId = "/tmp/boostj";
-const string JollaBooster::m_temporaryProcessName = "booster-j";
+const string JollaBooster::m_boosterType = "silica";
 
-const string & JollaBooster::socketId() const
+const string & JollaBooster::boosterType() const
 {
-    return m_socketId;
-}
-
-const string & JollaBooster::socketName()
-{
-    return m_socketId;
-}
-
-const string & JollaBooster::temporaryProcessName()
-{
-    return m_temporaryProcessName;
-}
-
-const string & JollaBooster::boosterTemporaryProcessName() const
-{
-    return temporaryProcessName();
-}
-
-char JollaBooster::type()
-{
-    return 'j';
+    return m_boosterType;
 }
 
 bool JollaBooster::preload()
@@ -61,7 +39,7 @@ bool JollaBooster::preload()
     QDeclarativeView *view = MDeclarativeCache::populate();
 
     // Load a QML file that references common elements, which will compile and cache them all
-    QDeclarativeComponent component(view->engine(), QUrl::fromLocalFile("/usr/share/jollabooster/preload.qml"));
+    QDeclarativeComponent component(view->engine(), QUrl::fromLocalFile("/usr/share/booster-silica/preload.qml"));
     if (!component.isReady()) {
         Logger::logError("JollaBooster: Preload component failed to load:");
         foreach (const QDeclarativeError &e, component.errors())
@@ -134,3 +112,12 @@ void JollaBooster::preinit()
     // char* app_class = qstrdup(appClass.toLatin1().data());
     // QApplication::setAppClass(app_class);
 }
+
+int main(int argc, char **argv)
+{
+    JollaBooster *booster = new JollaBooster;
+    Daemon d(argc, argv);
+    d.run(booster);
+    return 0;
+}
+
