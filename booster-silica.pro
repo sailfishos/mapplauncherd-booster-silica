@@ -15,7 +15,7 @@ CONFIG += qdeclarative-boostable
 LIBS += -lapplauncherd
 INCLUDEPATH += /usr/include/applauncherd/
 
-SOURCES += jollabooster.cpp eventhandler.cpp
-HEADERS += jollabooster.h eventhandler.h
+SOURCES += booster-silica.cpp eventhandler.cpp
+HEADERS += booster-silica.h eventhandler.h
 OTHER_FILES += preload.qml
 

@@ -1,10 +1,10 @@
-#ifndef JOLLABOOSTER_H
-#define JOLLABOOSTER_H
+#ifndef BOOSTER_SILICA_H
+#define BOOSTER_SILICA_H
 
 #include "eventhandler.h"
 #include "booster.h"
 
-class JollaBooster : public Booster
+class SilicaBooster : public Booster
 {
 public:
     virtual const std::string &boosterType() const;

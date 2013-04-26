@@ -21,29 +21,29 @@
 #include <QDeclarativeComponent>
 #include <QDeclarativeContext>
 #include <QFileInfo>
-#include "jollabooster.h"
+#include "booster-silica.h"
 #include "mdeclarativecache.h"
 #include "connection.h"
 #include "logger.h"
 #include "daemon.h"
 
-const string JollaBooster::m_boosterType = "silica";
+const string SilicaBooster::m_boosterType = "silica";
 
-const string & JollaBooster::boosterType() const
+const string & SilicaBooster::boosterType() const
 {
     return m_boosterType;
 }
 
-bool JollaBooster::preload()
+bool SilicaBooster::preload()
 {
     QDeclarativeView *view = MDeclarativeCache::populate();
 
     // Load a QML file that references common elements, which will compile and cache them all
     QDeclarativeComponent component(view->engine(), QUrl::fromLocalFile("/usr/share/booster-silica/preload.qml"));
     if (!component.isReady()) {
-        Logger::logError("JollaBooster: Preload component failed to load:");
+        Logger::logError("SilicaBooster: Preload component failed to load:");
         foreach (const QDeclarativeError &e, component.errors())
-            Logger::logError("JollaBooster:    %s", e.toString().toLatin1().constData());
+            Logger::logError("SilicaBooster:    %s", e.toString().toLatin1().constData());
         return true;
     }
 
@@ -51,13 +51,13 @@ bool JollaBooster::preload()
     QDeclarativeContext context(view->engine());
     QObject *obj = component.create(&context);
     if (!obj)
-        Logger::logError("JollaBooster: Preload object creation failed");
+        Logger::logError("SilicaBooster: Preload object creation failed");
     delete obj;
 
     return true;
 }
 
-bool JollaBooster::receiveDataFromInvoker(int socketFd)
+bool SilicaBooster::receiveDataFromInvoker(int socketFd)
 {
     // Use the default implementation if in boot mode
     // (it won't require QApplication running).
@@ -98,7 +98,7 @@ bool JollaBooster::receiveDataFromInvoker(int socketFd)
 }
 
 
-void JollaBooster::preinit()
+void SilicaBooster::preinit()
 {
     QString appName = QFileInfo(m_appData->argv()[0]).fileName();
 
@@ -115,7 +115,7 @@ void JollaBooster::preinit()
 
 int main(int argc, char **argv)
 {
-    JollaBooster *booster = new JollaBooster;
+    SilicaBooster *booster = new SilicaBooster;
     Daemon d(argc, argv);
     d.run(booster);
     return 0;

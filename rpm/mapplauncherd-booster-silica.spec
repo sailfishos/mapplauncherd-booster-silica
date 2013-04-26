@@ -1,10 +1,10 @@
-Name:       mapplauncherd-booster-jolla
+Name:       mapplauncherd-booster-silica
 Summary:    Application launch booster for Silica
 Version:    0.0.1
 Release:    1
 Group:      System/Applications
 License:    TBD
-URL:        https://bitbucket.org/jolla/mapplauncherd-booster-jolla
+URL:        https://bitbucket.org/jolla/ui-mapplauncherd-booster-silica
 Source0:    %{name}-%{version}.tar.bz2
 BuildRequires:  pkgconfig(QtCore) >= 4.8.0
 BuildRequires:  pkgconfig(QtDeclarative)
@@ -14,6 +14,9 @@ BuildRequires:  mapplauncherd-devel >= 4.1.0
 BuildRequires:  pkgconfig(qdeclarative-boostable)
 Requires:  sailfishsilica
 Requires:  mapplauncherd >= 4.1.0
+
+Provides: mapplauncherd-booster-jolla > 0.0.6
+Obsoletes: mapplauncherd-booster-jolla <= 0.0.6
 
 %description
 Application launch booster for Silica applications
