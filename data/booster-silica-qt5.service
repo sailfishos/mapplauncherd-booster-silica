@@ -1,0 +1,8 @@
+[Unit]
+Description=Application launch booster for Silica on QtQuick2
+After=xorg.target
+Requires=dbus.socket xorg.target
+
+[Service]
+Type=notify
+ExecStart=/usr/libexec/mapplauncherd/booster-silica-qt5 --systemd
