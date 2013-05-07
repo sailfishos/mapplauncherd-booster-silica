@@ -17,17 +17,33 @@
 **
 ****************************************************************************/
 
-#include <QDeclarativeView>
-#include <QDeclarativeComponent>
-#include <QDeclarativeContext>
 #include <QFileInfo>
+#include <QtGlobal>
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+# include <QQuickView>
+# include <QtQml>
+# define QDeclarativeView QQuickView
+# define QDeclarativeComponent QQmlComponent
+# define QDeclarativeContext QQmlContext
+# define QDeclarativeError QQmlError
+#else
+# include <QDeclarativeView>
+# include <QDeclarativeComponent>
+# include <QDeclarativeContext>
+#endif
+
 #include "booster-silica.h"
 #include "mdeclarativecache.h"
 #include "connection.h"
 #include "logger.h"
 #include "daemon.h"
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+const string SilicaBooster::m_boosterType = "silica-qt5";
+#else
 const string SilicaBooster::m_boosterType = "silica";
+#endif
 
 const string & SilicaBooster::boosterType() const
 {
@@ -39,7 +55,11 @@ bool SilicaBooster::preload()
     QDeclarativeView *view = MDeclarativeCache::populate();
 
     // Load a QML file that references common elements, which will compile and cache them all
-    QDeclarativeComponent component(view->engine(), QUrl::fromLocalFile("/usr/share/booster-silica/preload.qml"));
+    QString file = "/usr/share/booster-";
+    file += boosterType().c_str();
+    file += "/preload.qml";
+
+    QDeclarativeComponent component(view->engine(), QUrl::fromLocalFile(file));
     if (!component.isReady()) {
         Logger::logError("SilicaBooster: Preload component failed to load:");
         foreach (const QDeclarativeError &e, component.errors())
