@@ -2,6 +2,7 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 ApplicationWindow {
+    cover: null  // don't create a cover - the switcher will try to show it
     BackgroundItem { }
     Button { }
     SilicaFlickable {
