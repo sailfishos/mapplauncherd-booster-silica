@@ -14,7 +14,7 @@ BuildRequires:  mapplauncherd-devel >= 4.1.0
 BuildRequires:  pkgconfig(qdeclarative-boostable)
 Requires:  sailfishsilica
 Requires:  mapplauncherd >= 4.1.0
-
+Requires:  systemd-user-session-targets
 Provides: mapplauncherd-booster-jolla > 0.0.6
 Obsoletes: mapplauncherd-booster-jolla <= 0.0.6
 
@@ -34,13 +34,13 @@ make %{?jobs:-j%jobs}
 rm -rf %{buildroot}
 %qmake_install
 
-mkdir %{buildroot}/usr/lib/systemd/user/mapplauncherd.target.wants || true
-ln -s ../booster-silica.service %{buildroot}/usr/lib/systemd/user/mapplauncherd.target.wants/
+mkdir -p %{buildroot}/usr/lib/systemd/user/user-session.target.wants || true
+ln -s ../booster-silica.service %{buildroot}/usr/lib/systemd/user/user-session.target.wants/
 
 %files
 %defattr(-,root,root,-)
 %{_libexecdir}/mapplauncherd/booster-silica
 %{_datadir}/booster-silica/*
 %{_libdir}/systemd/user/booster-silica.service
-%{_libdir}/systemd/user/mapplauncherd.target.wants/booster-silica.service
+%{_libdir}/systemd/user/user-session.target.wants/booster-silica.service
 
