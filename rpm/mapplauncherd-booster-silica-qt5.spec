@@ -15,6 +15,7 @@ BuildRequires:  mapplauncherd-devel >= 4.1.0
 BuildRequires:  pkgconfig(qdeclarative5-boostable)
 Requires:  sailfishsilica-qt5
 Requires:  mapplauncherd >= 4.1.0
+Requires:  systemd-user-session-targets
 
 %description
 Application launch booster for Silica applications on QtQuick2
@@ -32,13 +33,13 @@ make %{?jobs:-j%jobs}
 rm -rf %{buildroot}
 %qmake_install
 
-mkdir %{buildroot}/usr/lib/systemd/user/mapplauncherd.target.wants || true
-ln -s ../booster-silica-qt5.service %{buildroot}/usr/lib/systemd/user/mapplauncherd.target.wants/
+mkdir -p %{buildroot}/usr/lib/systemd/user/user-session.target.wants || true
+ln -s ../booster-silica-qt5.service %{buildroot}/usr/lib/systemd/user/user-session.target.wants/
 
 %files
 %defattr(-,root,root,-)
 %{_libexecdir}/mapplauncherd/booster-silica-qt5
 %{_datadir}/booster-silica-qt5/*
 %{_libdir}/systemd/user/booster-silica-qt5.service
-%{_libdir}/systemd/user/mapplauncherd.target.wants/booster-silica-qt5.service
+%{_libdir}/systemd/user/user-session.target.wants/booster-silica-qt5.service
 
