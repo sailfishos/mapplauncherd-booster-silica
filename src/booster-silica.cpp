@@ -52,6 +52,9 @@ const string & SilicaBooster::boosterType() const
 
 bool SilicaBooster::preload()
 {
+    // for performance reasons, and transparent covers
+    QQuickWindow::setDefaultAlphaBuffer(true);
+
     QDeclarativeView *view = MDeclarativeCache::populate();
 
     // Load a QML file that references common elements, which will compile and cache them all
