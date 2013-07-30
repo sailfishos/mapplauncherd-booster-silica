@@ -1,7 +1,7 @@
 [Unit]
 Description=Application launch booster for Silica on QtQuick2
-After=pre-user-session.target
-Requires=dbus.socket pre-user-session.target
+After=lipstick.service
+Requires=dbus.socket lipstick.service
 
 [Service]
 Type=notify
