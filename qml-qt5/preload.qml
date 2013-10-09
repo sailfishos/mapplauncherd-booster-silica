@@ -27,10 +27,13 @@ ApplicationWindow {
             Dialog {
                 DialogHeader { }
             }
+            DockedPanel { }
+            Drawer { }
             IconButton { }
             SilicaListView {
                 ScrollDecorator { }
                 PushUpMenu { }
+                ListItem { }
             }
             MenuItem { }
             Page { }
@@ -39,6 +42,7 @@ ApplicationWindow {
             SearchField { }
             SectionHeader { }
             TextSwitch { }
+            ValueButton { }
             ViewPlaceholder { }
         }
     }
