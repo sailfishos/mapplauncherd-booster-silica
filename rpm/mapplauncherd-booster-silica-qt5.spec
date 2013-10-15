@@ -13,6 +13,8 @@ BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(Qt5Concurrent)
 BuildRequires:  mapplauncherd-devel >= 4.1.0
 BuildRequires:  pkgconfig(qdeclarative5-boostable)
+BuildRequires:  pkgconfig(libshadowutils)
+Requires(pre):  shadow-utils
 Requires:  sailfishsilica-qt5
 Requires:  mapplauncherd >= 4.1.0
 Requires:  systemd-user-session-targets
@@ -36,9 +38,12 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/lib/systemd/user/user-session.target.wants || true
 ln -s ../booster-silica-qt5.service %{buildroot}/usr/lib/systemd/user/user-session.target.wants/
 
+%pre
+groupadd -rf privileged
+
 %files
 %defattr(-,root,root,-)
-%{_libexecdir}/mapplauncherd/booster-silica-qt5
+%attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-silica-qt5
 %{_datadir}/booster-silica-qt5/*
 %{_libdir}/systemd/user/booster-silica-qt5.service
 %{_libdir}/systemd/user/user-session.target.wants/booster-silica-qt5.service

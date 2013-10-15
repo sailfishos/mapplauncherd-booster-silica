@@ -12,6 +12,8 @@ BuildRequires:  pkgconfig(QtGui)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  mapplauncherd-devel >= 4.1.0
 BuildRequires:  pkgconfig(qdeclarative-boostable)
+BuildRequires:  pkgconfig(libshadowutils)
+Requires(pre):  shadow-utils
 Requires:  sailfishsilica
 Requires:  mapplauncherd >= 4.1.0
 Requires:  systemd-user-session-targets
@@ -37,9 +39,12 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/lib/systemd/user/user-session.target.wants || true
 ln -s ../booster-silica.service %{buildroot}/usr/lib/systemd/user/user-session.target.wants/
 
+%pre
+groupadd -rf privileged
+
 %files
 %defattr(-,root,root,-)
-%{_libexecdir}/mapplauncherd/booster-silica
+%attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-silica
 %{_datadir}/booster-silica/*
 %{_libdir}/systemd/user/booster-silica.service
 %{_libdir}/systemd/user/user-session.target.wants/booster-silica.service
