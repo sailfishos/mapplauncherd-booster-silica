@@ -44,6 +44,9 @@ ApplicationWindow {
             TextSwitch { }
             ValueButton { }
             ViewPlaceholder { }
+            InteractionHintLabel {}
+            TouchInteractionHint {}
+            FirstTimeUseCounter {}
         }
     }
 }

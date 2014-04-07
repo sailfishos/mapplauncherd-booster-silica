@@ -15,7 +15,7 @@ BuildRequires:  mapplauncherd-devel >= 4.1.0
 BuildRequires:  pkgconfig(qdeclarative5-boostable)
 BuildRequires:  pkgconfig(libshadowutils)
 Requires(pre):  shadow-utils
-Requires:  sailfishsilica-qt5
+Requires:  sailfishsilica-qt5 >= 0.11.55
 Requires:  mapplauncherd >= 4.1.0
 Requires:  systemd-user-session-targets
 
