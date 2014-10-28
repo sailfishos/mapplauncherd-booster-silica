@@ -13,7 +13,21 @@ BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(Qt5Concurrent)
 BuildRequires:  mapplauncherd-devel >= 4.1.0
 BuildRequires:  pkgconfig(qdeclarative5-boostable)
+BuildRequires:  pkgconfig(Qt0Feedback)
+BuildRequires:  pkgconfig(Qt5DBus)
+BuildRequires:  pkgconfig(Qt5Sql)
+BuildRequires:  pkgconfig(Qt5Svg)
+BuildRequires:  pkgconfig(Qt5WaylandClient)
+BuildRequires:  pkgconfig(Qt5Xml)
+BuildRequires:  pkgconfig(Qt5XmlPatterns)
 BuildRequires:  pkgconfig(libshadowutils)
+BuildRequires:  pkgconfig(mlite5)
+BuildRequires:  pkgconfig(ngf-qt5)
+BuildRequires:  pkgconfig(sailfishsilicabackground-qt5)
+BuildRequires:  pkgconfig(gio-2.0)
+BuildRequires:  pkgconfig(gmodule-2.0)
+BuildRequires:  pkgconfig(gobject-2.0)
+
 Requires(pre):  shadow-utils
 Requires:  sailfishsilica-qt5 >= 0.11.55
 Requires:  mapplauncherd >= 4.1.0
@@ -26,7 +40,8 @@ Application launch booster for Silica applications on QtQuick2
 %setup -q -n %{name}-%{version}
 
 %build
-
+# We intentionally disable LD_AS_NEEDED in order to be able to link to libraries that we do not use symbols from.
+unset LD_AS_NEEDED
 %qmake5 
 
 make %{?jobs:-j%jobs}
