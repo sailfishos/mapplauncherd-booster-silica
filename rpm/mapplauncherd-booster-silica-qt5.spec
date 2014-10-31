@@ -27,7 +27,7 @@ BuildRequires:  pkgconfig(sailfishsilicabackground-qt5)
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gmodule-2.0)
 BuildRequires:  pkgconfig(gobject-2.0)
-
+BuildRequires:  pkgconfig(timed-qt5)
 Requires(pre):  shadow-utils
 Requires:  sailfishsilica-qt5 >= 0.11.55
 Requires:  mapplauncherd >= 4.1.0
