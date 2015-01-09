@@ -7,6 +7,7 @@
 class SilicaBooster : public Booster
 {
 public:
+    SilicaBooster();
     virtual const std::string &boosterType() const;
     virtual bool preload();
 

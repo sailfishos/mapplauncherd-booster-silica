@@ -45,6 +45,26 @@ const string SilicaBooster::m_boosterType = "silica-qt5";
 const string SilicaBooster::m_boosterType = "silica";
 #endif
 
+SilicaBooster::SilicaBooster()
+{
+    QQmlEngine *engine = new QQmlEngine;
+    qDebug() << "SilicaBooster starting up. Pre-fork component initialization." << engine;
+
+    // Load a QML file that references common elements, which will compile and cache them all
+    QString file = "/usr/share/booster-";
+    file += boosterType().c_str();
+    file += "/prefork.qml";
+
+    QDeclarativeComponent component(engine, QUrl::fromLocalFile(file));
+    if (!component.isReady()) {
+        Logger::logError("SilicaBooster: Prefork component failed to load:");
+        foreach (const QDeclarativeError &e, component.errors())
+            Logger::logError("SilicaBooster:    %s", e.toString().toLatin1().constData());
+    }
+
+    MDeclarativeCache::setQQmlEngine(engine);
+}
+
 const string & SilicaBooster::boosterType() const
 {
     return m_boosterType;
