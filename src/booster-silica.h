@@ -4,9 +4,14 @@
 #include "eventhandler.h"
 #include "booster.h"
 
+class SilicaBoosterData;
+
 class SilicaBooster : public Booster
 {
 public:
+    SilicaBooster();
+    ~SilicaBooster();
+
     virtual const std::string &boosterType() const;
     virtual bool preload();
 
@@ -15,6 +20,7 @@ protected:
     virtual void preinit();
 
 private:
+    SilicaBoosterData *data;
     static const std::string m_boosterType;
 };
 
