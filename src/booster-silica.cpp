@@ -20,18 +20,10 @@
 #include <QFileInfo>
 #include <QtGlobal>
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-# include <QQuickView>
-# include <QtQml>
-# define QDeclarativeView QQuickView
-# define QDeclarativeComponent QQmlComponent
-# define QDeclarativeContext QQmlContext
-# define QDeclarativeError QQmlError
-#else
-# include <QDeclarativeView>
-# include <QDeclarativeComponent>
-# include <QDeclarativeContext>
-#endif
+#include <QQuickView>
+#include <QtQml>
+
+#include <QElapsedTimer>
 
 #include "booster-silica.h"
 #include "mdeclarativecache.h"
@@ -39,11 +31,88 @@
 #include "logger.h"
 #include "daemon.h"
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 const string SilicaBooster::m_boosterType = "silica-qt5";
-#else
-const string SilicaBooster::m_boosterType = "silica";
-#endif
+
+class SilicaBoosterData : public QObject
+{
+    Q_OBJECT
+public:
+    SilicaBoosterData()
+        : QObject(), engine(0), component(0)
+    {
+    }
+
+    ~SilicaBoosterData() {
+        if (component && component->isLoading())
+            Logger::logInfo("SilicaBooster: Preload compilation aborted.");
+        delete component;
+    }
+
+    void beginPreload(QQmlEngine *engine, const QUrl &url) {
+        // We don't start immediately. If processes are being started back-to-back
+        // there is no point even starting to preload.
+        this->engine = engine;
+        source = url;
+        timer.start(250, this);
+    }
+
+protected:
+    bool event(QEvent *event) {
+        if (event->type() == QEvent::Timer && static_cast<QTimerEvent*>(event)->timerId() == timer.timerId()) {
+            timer.stop();
+            begin();
+            return true;
+        }
+
+        return false;
+    }
+
+private slots:
+    void begin() {
+        Logger::logInfo("SilicaBooster: Initiate asynchronous preload.");
+        component = new QQmlComponent(engine, source, QQmlComponent::Asynchronous);
+        if (component->isLoading()) {
+            QObject::connect(component, &QQmlComponent::statusChanged,
+                             this, &SilicaBoosterData::statusChanged);
+        } else {
+            statusChanged();
+        }
+    }
+
+    void statusChanged() {
+        if (component->isError()) {
+            Logger::logError("SilicaBooster: Preload component failed to load:");
+            foreach (const QQmlError &e, component->errors())
+                Logger::logError("SilicaBooster:    %s", e.toString().toLatin1().constData());
+        } else {
+            QQmlContext context(engine);
+            QObject *obj = component->create(&context);
+            if (!obj)
+                Logger::logError("SilicaBooster: Preload object creation failed");
+            delete obj;
+        }
+        component->deleteLater();
+        component = 0;
+    }
+
+private:
+    QBasicTimer timer;
+    QQmlEngine *engine;
+    QQmlComponent *component;
+    QUrl source;
+};
+
+
+
+SilicaBooster::SilicaBooster()
+    : Booster(), data(new SilicaBoosterData)
+{
+}
+
+SilicaBooster::~SilicaBooster()
+{
+    delete data;
+}
 
 const string & SilicaBooster::boosterType() const
 {
@@ -55,27 +124,14 @@ bool SilicaBooster::preload()
     // for performance reasons, and transparent covers
     QQuickWindow::setDefaultAlphaBuffer(true);
 
-    QDeclarativeView *view = MDeclarativeCache::populate();
+    QQuickView *view = MDeclarativeCache::populate();
 
     // Load a QML file that references common elements, which will compile and cache them all
     QString file = "/usr/share/booster-";
     file += boosterType().c_str();
     file += "/preload.qml";
 
-    QDeclarativeComponent component(view->engine(), QUrl::fromLocalFile(file));
-    if (!component.isReady()) {
-        Logger::logError("SilicaBooster: Preload component failed to load:");
-        foreach (const QDeclarativeError &e, component.errors())
-            Logger::logError("SilicaBooster:    %s", e.toString().toLatin1().constData());
-        return true;
-    }
-
-    // Create an instance of that object, which will initialize everything else
-    QDeclarativeContext context(view->engine());
-    QObject *obj = component.create(&context);
-    if (!obj)
-        Logger::logError("SilicaBooster: Preload object creation failed");
-    delete obj;
+    data->beginPreload(view->engine(), QUrl::fromLocalFile(file));
 
     return true;
 }
@@ -96,6 +152,10 @@ bool SilicaBooster::receiveDataFromInvoker(int socketFd)
 
         EventHandler handler(this);
         handler.runEventLoop();
+
+        // Destroy preload data, potentially aborting async preload.
+        delete data;
+        data = 0;
 
         if (!connection()->connected())
         {
@@ -144,3 +204,4 @@ int main(int argc, char **argv)
     return 0;
 }
 
+#include "booster-silica.moc"
