@@ -1,6 +1,6 @@
 Name:       mapplauncherd-booster-silica-qt5
 Summary:    Application launch booster for Silica on QtQuick2
-Version:    0.0.1
+Version:    0.1.12
 Release:    1
 Group:      System/Applications
 License:    TBD
