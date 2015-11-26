@@ -3,7 +3,7 @@ Summary:    Application launch booster for Silica on QtQuick2
 Version:    0.1.12
 Release:    1
 Group:      System/Applications
-License:    TBD
+License:    Proprietary
 URL:        https://bitbucket.org/jolla/ui-mapplauncherd-booster-silica
 Source0:    %{name}-%{version}.tar.bz2
 BuildRequires:  pkgconfig(Qt5Core)
