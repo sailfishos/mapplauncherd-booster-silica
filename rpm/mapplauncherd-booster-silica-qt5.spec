@@ -36,6 +36,26 @@ Requires:  systemd-user-session-targets
 %description
 Application launch booster for Silica applications on QtQuick2
 
+%package media
+Summary:   Application launch booster for Silica applications on QtQuick2 with QtMultimedia
+Group:     System/Application
+BuildRequires:  pkgconfig(Qt5Multimedia)
+Requires:  %{name} = %{version}-%{release}
+Requires: qt5-qtdeclarative-import-multimedia
+Requires: qt5-qtmultimedia-plugin-mediaservice-gstcamerabin >= 5.1.0+git25
+Requires: qt5-qtmultimedia-plugin-mediaservice-gstmediaplayer
+Requires:  nemo-qml-plugin-thumbnailer-qt5-video
+Requires:  nemo-qml-plugin-thumbnailer-qt5
+Requires:  nemo-qml-plugin-dbus-qt5
+Requires:  nemo-qml-plugin-policy-qt5
+Requires:  nemo-qml-plugin-time-qt5
+Requires:  nemo-qml-plugin-configuration-qt5
+Requires:  sailfish-components-gallery-qt5 >= 0.0.48
+Requires:  libngf-qt5-declarative
+
+%description media
+Application launch booster for Silica applications on QtQuick2 with QtMultimedia
+
 %prep
 %setup -q -n %{name}-%{version}
 
@@ -52,14 +72,22 @@ rm -rf %{buildroot}
 
 mkdir -p %{buildroot}/usr/lib/systemd/user/user-session.target.wants || true
 ln -s ../booster-silica-qt5.service %{buildroot}/usr/lib/systemd/user/user-session.target.wants/
+ln -s ../booster-silica-media.service %{buildroot}/usr/lib/systemd/user/user-session.target.wants/
 
 %pre
 groupadd -rf privileged
 
+%files media
+%defattr(-,root,root,-)
+%attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-silica-media
+%{_datadir}/booster-silica-media/preload.qml
+%{_libdir}/systemd/user/booster-silica-media.service
+%{_libdir}/systemd/user/user-session.target.wants/booster-silica-media.service
+
 %files
 %defattr(-,root,root,-)
 %attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-silica-qt5
-%{_datadir}/booster-silica-qt5/*
+%{_datadir}/booster-silica-qt5/preload.qml
 %{_libdir}/systemd/user/booster-silica-qt5.service
 %{_libdir}/systemd/user/user-session.target.wants/booster-silica-qt5.service
 
