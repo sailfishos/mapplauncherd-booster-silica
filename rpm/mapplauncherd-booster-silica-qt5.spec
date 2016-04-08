@@ -37,7 +37,7 @@ Requires:  systemd-user-session-targets
 Application launch booster for Silica applications on QtQuick2
 
 %package media
-Summary:   Application launch booster for Silica applications on QtQuick2 with QtMultimedia
+Summary:   Application launch booster for Silica/QtQuick2 with QtMultimedia
 Group:     System/Application
 BuildRequires:  pkgconfig(Qt5Multimedia)
 Requires:  %{name} = %{version}-%{release}
@@ -51,10 +51,9 @@ Requires:  nemo-qml-plugin-policy-qt5
 Requires:  nemo-qml-plugin-time-qt5
 Requires:  nemo-qml-plugin-configuration-qt5
 Requires:  sailfish-components-gallery-qt5 >= 0.0.48
-Requires:  libngf-qt5-declarative
 
 %description media
-Application launch booster for Silica applications on QtQuick2 with QtMultimedia
+Application launch booster for Silica/QtQuick2 with QtMultimedia
 
 %prep
 %setup -q -n %{name}-%{version}
