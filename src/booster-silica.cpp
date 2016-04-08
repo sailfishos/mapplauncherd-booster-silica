@@ -31,7 +31,7 @@
 #include "logger.h"
 #include "daemon.h"
 
-const string SilicaBooster::m_boosterType = "silica-qt5";
+const string SilicaBooster::m_boosterType = BOOSTER_TYPE;
 
 class SilicaBoosterData : public QObject
 {
