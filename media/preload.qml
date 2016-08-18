@@ -25,8 +25,6 @@ ApplicationWindow {
     PageHeader { }
     Slider { }
     Switch { }
-    TextArea { }
-    TextField { }
 
     Component {
         // These will be compiled but not instantiated.
@@ -60,6 +58,8 @@ ApplicationWindow {
             RemorsePopup { }
             SearchField { }
             SectionHeader { }
+            TextArea { }
+            TextField { }
             TextSwitch { }
             ValueButton { }
             ViewPlaceholder { }
