@@ -12,8 +12,6 @@ ApplicationWindow {
     PageHeader { }
     Slider { }
     Switch { }
-    TextArea { }
-    TextField { }
     Component {
         // These will be compiled but not instantiated.
         // If instantiation won't result in further caching then place those
@@ -41,6 +39,8 @@ ApplicationWindow {
             RemorsePopup { }
             SearchField { }
             SectionHeader { }
+            TextArea { }
+            TextField { }
             TextSwitch { }
             ValueButton { }
             ViewPlaceholder { }
