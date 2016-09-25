@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.5
 import Sailfish.Silica 1.0
 
 ApplicationWindow {
@@ -17,6 +17,9 @@ ApplicationWindow {
         // If instantiation won't result in further caching then place those
         // components here.
         Item {
+            AddAnimation { }
+            BusyIndicator { }
+            ColumnView { }
             ComboBox { }
             ContextMenu { }
             CoverBackground { }
@@ -39,6 +42,8 @@ ApplicationWindow {
             RemorsePopup { }
             SearchField { }
             SectionHeader { }
+            SilicaGridView { }
+            OpacityRampEffect { }
             TextArea { }
             TextField { }
             TextSwitch { }
