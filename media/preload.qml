@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.5
 import Sailfish.Silica 1.0
 import Sailfish.Gallery 1.0
 import QtMultimedia 5.4
@@ -35,6 +35,9 @@ ApplicationWindow {
             Thumbnail {}
             DocumentGalleryModel {}
 
+            AddAnimation { }
+            BusyIndicator { }
+            ColumnView { }
             ComboBox { }
             ContextMenu { }
             CoverBackground { }
@@ -58,6 +61,8 @@ ApplicationWindow {
             RemorsePopup { }
             SearchField { }
             SectionHeader { }
+            SilicaGridView { }
+            OpacityRampEffect { }
             TextArea { }
             TextField { }
             TextSwitch { }

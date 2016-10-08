@@ -87,12 +87,14 @@ private slots:
         } else {
             QQmlContext context(engine);
             QObject *obj = component->create(&context);
-            if (!obj)
+            if (obj)
+                obj->setParent(this);
+            else
                 Logger::logError("SilicaBooster: Preload object creation failed");
             delete obj;
         }
-        component->deleteLater();
-        component = 0;
+        // Don't destroy the component here to ensure the components remain in cache
+        // until the app loads.
     }
 
 private:
