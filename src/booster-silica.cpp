@@ -42,13 +42,15 @@ public:
     {
     }
 
-    ~SilicaBoosterData() {
+    ~SilicaBoosterData()
+    {
         if (component && component->isLoading())
             Logger::logInfo("SilicaBooster: Preload compilation aborted.");
         delete component;
     }
 
-    void beginPreload(QQmlEngine *engine, const QUrl &url) {
+    void beginPreload(QQmlEngine *engine, const QUrl &url)
+    {
         // We don't start immediately. If processes are being started back-to-back
         // there is no point even starting to preload.
         this->engine = engine;
@@ -57,7 +59,8 @@ public:
     }
 
 protected:
-    bool event(QEvent *event) {
+    bool event(QEvent *event)
+    {
         if (event->type() == QEvent::Timer && static_cast<QTimerEvent*>(event)->timerId() == timer.timerId()) {
             timer.stop();
             begin();
@@ -68,7 +71,8 @@ protected:
     }
 
 private slots:
-    void begin() {
+    void begin()
+    {
         Logger::logInfo("SilicaBooster: Initiate asynchronous preload.");
         component = new QQmlComponent(engine, source, QQmlComponent::Asynchronous);
         if (component->isLoading()) {
@@ -79,7 +83,8 @@ private slots:
         }
     }
 
-    void statusChanged() {
+    void statusChanged()
+    {
         if (component->isError()) {
             Logger::logError("SilicaBooster: Preload component failed to load:");
             foreach (const QQmlError &e, component->errors())
@@ -143,12 +148,9 @@ bool SilicaBooster::receiveDataFromInvoker(int socketFd)
     // Use the default implementation if in boot mode
     // (it won't require QApplication running).
 
-    if (bootMode())
-    {
+    if (bootMode()) {
         return Booster::receiveDataFromInvoker(socketFd);
-    }
-    else
-    {
+    } else {
         // Setup the conversation channel with the invoker.
         setConnection(new Connection(socketFd));
 
@@ -159,22 +161,19 @@ bool SilicaBooster::receiveDataFromInvoker(int socketFd)
         delete data;
         data = 0;
 
-        if (!connection()->connected())
-        {
+        if (!connection()->connected()) {
             return false;
         }
 
         // Receive application data from the invoker
-        if(!connection()->receiveApplicationData(appData()))
-        {
+        if (!connection()->receiveApplicationData(appData())) {
             connection()->close();
             return false;
         }
 
         // Close the connection if exit status doesn't need
         // to be sent back to invoker
-        if (!connection()->isReportAppExitStatusNeeded())
-        {
+        if (!connection()->isReportAppExitStatusNeeded()) {
             connection()->close();
         }
 
