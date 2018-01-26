@@ -57,12 +57,9 @@ void EventHandler::runEventLoop()
 
     // Create socket pair for SIGHUP
     bool handlerIsSet = false;
-    if (::socketpair(AF_UNIX, SOCK_STREAM, 0, m_sighupFd))
-    {
+    if (::socketpair(AF_UNIX, SOCK_STREAM, 0, m_sighupFd)) {
         Logger::logError("EventHandler: Couldn't create HUP socketpair");
-    }
-    else
-    {
+    } else {
         // Install signal handler e.g. to exit cleanly if launcher dies.
         // This is a problem because MBooster runs a Qt event loop.
         EventHandler::setupUnixSignalHandlers();
@@ -78,20 +75,16 @@ void EventHandler::runEventLoop()
     QCoreApplication::exec();
 
     // Restore signal handlers to previous values
-    if (handlerIsSet)
-    {
+    if (handlerIsSet) {
         restoreUnixSignalHandlers();
     }
 }
 
 void EventHandler::accept()
 {
-    if (m_parent->connection()->accept(m_parent->appData()))
-    {
+    if (m_parent->connection()->accept(m_parent->appData())) {
         emit connectionAccepted();
-    }
-    else
-    {
+    } else {
         emit connectionRejected();
     }
 }
@@ -121,8 +114,7 @@ bool EventHandler::setupUnixSignalHandlers()
     sigemptyset(&hup.sa_mask);
     hup.sa_flags = SA_RESTART;
 
-    if (sigaction(SIGHUP, &hup, &m_oldSigAction) > 0)
-    {
+    if (sigaction(SIGHUP, &hup, &m_oldSigAction) > 0) {
         return false;
     }
 
@@ -131,8 +123,7 @@ bool EventHandler::setupUnixSignalHandlers()
 
 bool EventHandler::restoreUnixSignalHandlers()
 {
-    if (sigaction(SIGHUP, &m_oldSigAction, 0) > 0)
-    {
+    if (sigaction(SIGHUP, &m_oldSigAction, 0) > 0) {
         return false;
     }
 

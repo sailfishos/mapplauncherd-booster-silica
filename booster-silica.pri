@@ -1,7 +1,7 @@
 
 CONFIG += link_pkgconfig
 QT += qml quick concurrent feedback dbus sql svg waylandclient xml xmlpatterns
-PKGCONFIG += mlite5 sailfishsilicabackground-qt5 timed-qt5 gio-2.0 glib-2.0 gmodule-2.0 gobject-2.0
+PKGCONFIG += mlite5 timed-qt5 gio-2.0 glib-2.0 gmodule-2.0 gobject-2.0
 
 CONFIG += qdeclarative-boostable
 
