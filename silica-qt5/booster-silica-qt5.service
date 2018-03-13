@@ -1,11 +1,12 @@
 [Unit]
 Description=Application launch booster for Silica on QtQuick2
-After=lipstick.service
+After=lipstick.service booster-silica-session.path
 Requires=dbus.socket lipstick.service
 
 [Service]
-Type=notify
-ExecStart=/usr/libexec/mapplauncherd/booster-silica-qt5 --systemd
+Type=forking
+PIDFile=%t/mapplauncherd/silica-qt5.pid
+ExecStart=/usr/bin/invoker --type=silica-session -o /usr/libexec/mapplauncherd/booster-silica-qt5 --daemon
 Restart=always
 RestartSec=1
 OOMScoreAdjust=-250
