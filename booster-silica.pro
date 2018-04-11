@@ -2,4 +2,5 @@ TEMPLATE = subdirs
 
 SUBDIRS = \
     silica-qt5 \
-    media
+    media \
+    session

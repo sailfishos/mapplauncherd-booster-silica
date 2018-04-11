@@ -85,7 +85,7 @@ groupadd -rf privileged
 %files
 %defattr(-,root,root,-)
 %attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-silica-qt5
+%attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-silica-session
 %{_datadir}/booster-silica-qt5/preload.qml
 %{_libdir}/systemd/user/booster-silica-qt5.service
 %{_libdir}/systemd/user/user-session.target.wants/booster-silica-qt5.service
-

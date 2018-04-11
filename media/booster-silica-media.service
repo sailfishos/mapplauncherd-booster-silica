@@ -1,11 +1,12 @@
 [Unit]
 Description=Application launch booster for Sailfish Media
-After=lipstick.service
-Requires=dbus.socket lipstick.service
+After=lipstick.service booster-silica-session.service
+Requires=dbus.socket lipstick.service booster-silica-session.path
 
 [Service]
-Type=notify
-ExecStart=/usr/libexec/mapplauncherd/booster-silica-media --systemd
+Type=forking
+PIDFile=%t/mapplauncherd/silica-media.pid
+ExecStart=/usr/bin/invoker --type=silica-session -o /usr/libexec/mapplauncherd/booster-silica-media --daemon
 Restart=always
 RestartSec=1
 OOMScoreAdjust=-250
