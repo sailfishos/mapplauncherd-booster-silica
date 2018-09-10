@@ -78,7 +78,7 @@ groupadd -rf privileged
 %files media
 %defattr(-,root,root,-)
 %attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-silica-media
-%{_datadir}/booster-silica-media/preload.qml
+%{_datadir}/booster-silica-media/preload.{qml,qmlc}
 %{_libdir}/systemd/user/booster-silica-media.service
 %{_libdir}/systemd/user/user-session.target.wants/booster-silica-media.service
 
@@ -86,6 +86,6 @@ groupadd -rf privileged
 %defattr(-,root,root,-)
 %attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-silica-qt5
 %attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-silica-session
-%{_datadir}/booster-silica-qt5/preload.qml
+%{_datadir}/booster-silica-qt5/preload.{qml,qmlc}
 %{_libdir}/systemd/user/booster-silica-qt5.service
 %{_libdir}/systemd/user/user-session.target.wants/booster-silica-qt5.service

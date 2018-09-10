@@ -10,7 +10,6 @@ CONFIG += qdeclarative-boostable
 QMAKE_LFLAGS += -Wl,-z,now
 
 target.path = /usr/libexec/mapplauncherd/
-qml.path = /usr/share/$${TARGET}/
 
 service.path = /usr/lib/systemd/user/
 
