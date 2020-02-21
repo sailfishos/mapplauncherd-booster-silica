@@ -11,3 +11,5 @@ INCLUDEPATH += /usr/include/applauncherd/
 
 SOURCES += booster-session.cpp
 
+CONFIG += link_pkgconfig
+PKGCONFIG += libsystemd

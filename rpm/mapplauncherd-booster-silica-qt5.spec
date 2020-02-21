@@ -2,8 +2,7 @@ Name:       mapplauncherd-booster-silica-qt5
 Summary:    Application launch booster for Silica on QtQuick2
 Version:    0.1.12
 Release:    1
-Group:      System/Applications
-License:    Proprietary
+License:    LGPLv2
 URL:        https://bitbucket.org/jolla/ui-mapplauncherd-booster-silica
 Source0:    %{name}-%{version}.tar.bz2
 BuildRequires:  pkgconfig(Qt5Core)
@@ -27,6 +26,7 @@ BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gmodule-2.0)
 BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(timed-qt5)
+BuildRequires:  pkgconfig(libsystemd)
 Requires(pre):  shadow-utils
 Requires:  sailfishsilica-qt5 >= 0.11.55
 Requires:  mapplauncherd >= 4.1.0
@@ -37,7 +37,6 @@ Application launch booster for Silica applications on QtQuick2
 
 %package media
 Summary:   Application launch booster for Silica/QtQuick2 with QtMultimedia
-Group:     System/Application
 BuildRequires:  pkgconfig(Qt5Multimedia)
 Requires:  %{name} = %{version}-%{release}
 Requires: qt5-qtdeclarative-import-multimedia
@@ -62,7 +61,7 @@ Application launch booster for Silica/QtQuick2 with QtMultimedia
 unset LD_AS_NEEDED
 %qmake5 
 
-make %{?jobs:-j%jobs}
+make %{?_smp_mflags}
 
 %install
 rm -rf %{buildroot}
@@ -78,7 +77,7 @@ groupadd -rf privileged
 %files media
 %defattr(-,root,root,-)
 %attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-silica-media
-%{_datadir}/booster-silica-media/preload.qml
+%{_datadir}/booster-silica-media
 %{_libdir}/systemd/user/booster-silica-media.service
 %{_libdir}/systemd/user/user-session.target.wants/booster-silica-media.service
 
@@ -86,6 +85,6 @@ groupadd -rf privileged
 %defattr(-,root,root,-)
 %attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-silica-qt5
 %attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-silica-session
-%{_datadir}/booster-silica-qt5/preload.qml
+%{_datadir}/booster-silica-qt5
 %{_libdir}/systemd/user/booster-silica-qt5.service
 %{_libdir}/systemd/user/user-session.target.wants/booster-silica-qt5.service
