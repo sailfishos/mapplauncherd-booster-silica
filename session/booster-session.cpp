@@ -1,3 +1,20 @@
+/***************************************************************************
+**
+** Copyright (c) 2018 - 2020 Jolla Ltd.
+** Copyright (c) 2020 Open Mobile Platform LLC.
+**
+** All rights reserved.
+**
+** This file is part of mapplauncherd-booster-silica-qt5
+**
+** This library is free software; you can redistribute it and/or
+** modify it under the terms of the GNU Lesser General Public
+** License version 2.1 as published by the Free Software Foundation
+** and appearing in the file LICENSE.LGPL included in the packaging
+** of this file.
+**
+****************************************************************************/
+
 #include <QVarLengthArray>
 
 #include <booster.h>
