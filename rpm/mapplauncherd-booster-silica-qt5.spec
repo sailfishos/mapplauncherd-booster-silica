@@ -26,6 +26,7 @@ BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gmodule-2.0)
 BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(timed-qt5)
+BuildRequires:  systemd
 Requires(pre):  shadow-utils
 Requires:  sailfishsilica-qt5 >= 0.11.55
 Requires:  mapplauncherd >= 4.1.0
@@ -58,7 +59,7 @@ Application launch booster for Silica/QtQuick2 with QtMultimedia
 %build
 # We intentionally disable LD_AS_NEEDED in order to be able to link to libraries that we do not use symbols from.
 unset LD_AS_NEEDED
-%qmake5 
+%qmake5
 
 make %{?_smp_mflags}
 
@@ -66,9 +67,9 @@ make %{?_smp_mflags}
 rm -rf %{buildroot}
 %qmake_install
 
-mkdir -p %{buildroot}/usr/lib/systemd/user/user-session.target.wants || true
-ln -s ../booster-silica-qt5.service %{buildroot}/usr/lib/systemd/user/user-session.target.wants/
-ln -s ../booster-silica-media.service %{buildroot}/usr/lib/systemd/user/user-session.target.wants/
+mkdir -p %{buildroot}%{_userunitdir}/user-session.target.wants || true
+ln -s ../booster-silica-qt5.service %{buildroot}%{_userunitdir}/user-session.target.wants/
+ln -s ../booster-silica-media.service %{buildroot}%{_userunitdir}/user-session.target.wants/
 
 %pre
 groupadd -rf privileged
@@ -77,13 +78,13 @@ groupadd -rf privileged
 %defattr(-,root,root,-)
 %attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-silica-media
 %{_datadir}/booster-silica-media
-%{_libdir}/systemd/user/booster-silica-media.service
-%{_libdir}/systemd/user/user-session.target.wants/booster-silica-media.service
+%{_userunitdir}/booster-silica-media.service
+%{_userunitdir}/user-session.target.wants/booster-silica-media.service
 
 %files
 %defattr(-,root,root,-)
 %attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-silica-qt5
 %attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-silica-session
 %{_datadir}/booster-silica-qt5
-%{_libdir}/systemd/user/booster-silica-qt5.service
-%{_libdir}/systemd/user/user-session.target.wants/booster-silica-qt5.service
+%{_userunitdir}/booster-silica-qt5.service
+%{_userunitdir}/user-session.target.wants/booster-silica-qt5.service
