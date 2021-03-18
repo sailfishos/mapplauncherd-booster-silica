@@ -27,7 +27,7 @@ BuildRequires:  pkgconfig(gmodule-2.0)
 BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(timed-qt5)
 BuildRequires:  systemd
-Requires(pre):  shadow-utils
+Requires(pre):  sailfish-setup
 Requires:  sailfishsilica-qt5 >= 0.11.55
 Requires:  mapplauncherd >= 4.1.0
 Requires:  systemd-user-session-targets
@@ -38,6 +38,7 @@ Application launch booster for Silica applications on QtQuick2
 %package media
 Summary:   Application launch booster for Silica/QtQuick2 with QtMultimedia
 BuildRequires:  pkgconfig(Qt5Multimedia)
+Requires(pre):  sailfish-setup
 Requires:  %{name} = %{version}-%{release}
 Requires: qt5-qtdeclarative-import-multimedia
 Requires: qt5-qtmultimedia-plugin-mediaservice-gstcamerabin >= 5.1.0+git25
@@ -70,9 +71,6 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}%{_userunitdir}/user-session.target.wants || true
 ln -s ../booster-silica-qt5.service %{buildroot}%{_userunitdir}/user-session.target.wants/
 ln -s ../booster-silica-media.service %{buildroot}%{_userunitdir}/user-session.target.wants/
-
-%pre
-groupadd -rf privileged
 
 %files media
 %defattr(-,root,root,-)
