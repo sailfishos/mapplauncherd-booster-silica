@@ -28,17 +28,19 @@ BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(timed-qt5)
 BuildRequires:  systemd
 Requires(pre):  sailfish-setup
+Requires(post): /usr/sbin/setcap
 Requires:  sailfishsilica-qt5 >= 0.11.55
 Requires:  mapplauncherd >= 4.1.0
 Requires:  systemd-user-session-targets
 
 %description
-Application launch booster for Silica applications on QtQuick2
+Application launch booster for Silica applications on QtQuick2.
 
 %package media
 Summary:   Application launch booster for Silica/QtQuick2 with QtMultimedia
 BuildRequires:  pkgconfig(Qt5Multimedia)
 Requires(pre):  sailfish-setup
+Requires(post): /usr/sbin/setcap
 Requires:  %{name} = %{version}-%{release}
 Requires: qt5-qtdeclarative-import-multimedia
 Requires: qt5-qtmultimedia-plugin-mediaservice-gstcamerabin >= 5.1.0+git25
@@ -52,10 +54,17 @@ Requires:  nemo-qml-plugin-configuration-qt5
 Requires:  sailfish-components-gallery-qt5 >= 0.0.48
 
 %description media
-Application launch booster for Silica/QtQuick2 with QtMultimedia
+Application launch booster for Silica/QtQuick2 with QtMultimedia.
 
 %prep
 %setup -q -n %{name}-%{version}
+
+%post
+/usr/sbin/setcap cap_sys_ptrace+pe %{_libexecdir}/mapplauncherd/booster-silica-qt5 || :
+/usr/sbin/setcap cap_sys_ptrace+pe %{_libexecdir}/mapplauncherd/booster-silica-session || :
+
+%post media
+/usr/sbin/setcap cap_sys_ptrace+pe %{_libexecdir}/mapplauncherd/booster-silica-media || :
 
 %build
 # We intentionally disable LD_AS_NEEDED in order to be able to link to libraries that we do not use symbols from.
