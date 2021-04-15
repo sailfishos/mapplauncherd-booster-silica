@@ -79,6 +79,7 @@ ln -s ../booster-silica-media.service %{buildroot}%{_userunitdir}/user-session.t
 %attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-silica-media
 %{_datadir}/booster-silica-media
 %{_userunitdir}/booster-silica-media.service
+%{_userunitdir}/booster-silica-media@.service
 %{_userunitdir}/user-session.target.wants/booster-silica-media.service
 
 %files
@@ -88,4 +89,5 @@ ln -s ../booster-silica-media.service %{buildroot}%{_userunitdir}/user-session.t
 %attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-silica-session
 %{_datadir}/booster-silica-qt5
 %{_userunitdir}/booster-silica-qt5.service
+%{_userunitdir}/booster-silica-qt5@.service
 %{_userunitdir}/user-session.target.wants/booster-silica-qt5.service

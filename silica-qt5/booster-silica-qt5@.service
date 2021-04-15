@@ -1,0 +1,12 @@
+[Unit]
+Description=Application launch booster for Silica on QtQuick2 (sandboxed)
+
+Requires=dbus.socket booster-silica-session.path lipstick.service
+After=dbus.service booster-silica-session.path lipstick.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/invoker --type=silica-session -- /usr/bin/sailjail --profile=%i -- /usr/libexec/mapplauncherd/booster-silica-qt5 --application=%i
+Restart=always
+RestartSec=1
+OOMScoreAdjust=-250
