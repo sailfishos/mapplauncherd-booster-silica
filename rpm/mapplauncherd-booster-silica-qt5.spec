@@ -90,6 +90,7 @@ ln -s ../booster-silica-media.service %{buildroot}%{_userunitdir}/user-session.t
 
 %files
 %defattr(-,root,root,-)
+%license COPYING.LESSER
 %attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-silica-qt5
 %attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-silica-session
 %{_datadir}/booster-silica-qt5
