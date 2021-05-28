@@ -59,13 +59,6 @@ Application launch booster for Silica/QtQuick2 with QtMultimedia.
 %prep
 %setup -q -n %{name}-%{version}
 
-%post
-/usr/sbin/setcap cap_sys_ptrace+pe %{_libexecdir}/mapplauncherd/booster-silica-qt5 || :
-/usr/sbin/setcap cap_sys_ptrace+pe %{_libexecdir}/mapplauncherd/booster-silica-session || :
-
-%post media
-/usr/sbin/setcap cap_sys_ptrace+pe %{_libexecdir}/mapplauncherd/booster-silica-media || :
-
 %build
 # We intentionally disable LD_AS_NEEDED in order to be able to link to libraries that we do not use symbols from.
 unset LD_AS_NEEDED
