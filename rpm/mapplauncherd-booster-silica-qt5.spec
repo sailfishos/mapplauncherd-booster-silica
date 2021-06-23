@@ -10,7 +10,7 @@ BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5Gui)
 BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(Qt5Concurrent)
-BuildRequires:  mapplauncherd-devel >= 4.1.0
+BuildRequires:  pkgconfig(applauncherd) >= 4.2.3
 BuildRequires:  pkgconfig(qdeclarative5-boostable)
 BuildRequires:  pkgconfig(Qt0Feedback)
 BuildRequires:  pkgconfig(Qt5DBus)
@@ -30,7 +30,7 @@ BuildRequires:  systemd
 Requires(pre):  sailfish-setup
 Requires(post): /usr/sbin/setcap
 Requires:  sailfishsilica-qt5 >= 0.11.55
-Requires:  mapplauncherd >= 4.1.0
+Requires:  mapplauncherd >= 4.2.3
 Requires:  systemd-user-session-targets
 
 %description
@@ -57,17 +57,16 @@ Requires:  sailfish-components-gallery-qt5 >= 0.0.48
 Application launch booster for Silica/QtQuick2 with QtMultimedia.
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup -n %{name}-%{version}
 
 %build
 # We intentionally disable LD_AS_NEEDED in order to be able to link to libraries that we do not use symbols from.
 unset LD_AS_NEEDED
 %qmake5
 
-make %{?_smp_mflags}
+%make_build
 
 %install
-rm -rf %{buildroot}
 %qmake_install
 
 mkdir -p %{buildroot}%{_userunitdir}/user-session.target.wants || true

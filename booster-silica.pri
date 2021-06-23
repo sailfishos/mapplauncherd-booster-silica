@@ -1,7 +1,7 @@
 
 CONFIG += link_pkgconfig
 QT += qml quick concurrent feedback dbus sql svg waylandclient xml xmlpatterns
-PKGCONFIG += mlite5 timed-qt5 gio-2.0 glib-2.0 gmodule-2.0 gobject-2.0
+PKGCONFIG += mlite5 timed-qt5 gio-2.0 glib-2.0 gmodule-2.0 gobject-2.0 applauncherd
 
 CONFIG += qdeclarative-boostable
 
@@ -13,9 +13,6 @@ target.path = /usr/libexec/mapplauncherd/
 qml.path = /usr/share/$${TARGET}/
 
 service.path = /usr/lib/systemd/user/
-
-LIBS += -lapplauncherd
-INCLUDEPATH += /usr/include/applauncherd/
 
 SOURCES += ../src/booster-silica.cpp ../src/eventhandler.cpp
 HEADERS += ../src/booster-silica.h ../src/eventhandler.h

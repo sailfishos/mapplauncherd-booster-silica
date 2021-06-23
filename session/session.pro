@@ -6,8 +6,8 @@ INSTALLS += target
 
 target.path = /usr/libexec/mapplauncherd/
 
-LIBS += -lapplauncherd
-INCLUDEPATH += /usr/include/applauncherd/
+CONFIG += link_pkgconfig
+PKGCONFIG += applauncherd
 
 SOURCES += booster-session.cpp
 
