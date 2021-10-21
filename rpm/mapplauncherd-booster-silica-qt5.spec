@@ -26,7 +26,7 @@ BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gmodule-2.0)
 BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(timed-qt5)
-BuildRequires:  systemd
+BuildRequires:  pkgconfig(systemd)
 Requires(pre):  sailfish-setup
 Requires(post): /usr/sbin/setcap
 Requires:  sailfishsilica-qt5 >= 0.11.55
