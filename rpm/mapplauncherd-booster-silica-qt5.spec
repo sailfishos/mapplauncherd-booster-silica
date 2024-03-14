@@ -15,10 +15,7 @@ BuildRequires:  pkgconfig(qdeclarative5-boostable)
 BuildRequires:  pkgconfig(Qt0Feedback)
 BuildRequires:  pkgconfig(Qt5DBus)
 BuildRequires:  pkgconfig(Qt5Sql)
-BuildRequires:  pkgconfig(Qt5Svg)
 BuildRequires:  pkgconfig(Qt5WaylandClient)
-BuildRequires:  pkgconfig(Qt5Xml)
-BuildRequires:  pkgconfig(Qt5XmlPatterns)
 BuildRequires:  pkgconfig(libshadowutils)
 BuildRequires:  pkgconfig(mlite5)
 BuildRequires:  pkgconfig(ngf-qt5)
@@ -74,7 +71,6 @@ ln -s ../booster-silica-qt5.service %{buildroot}%{_userunitdir}/user-session.tar
 ln -s ../booster-silica-media.service %{buildroot}%{_userunitdir}/user-session.target.wants/
 
 %files media
-%defattr(-,root,root,-)
 %attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-silica-media
 %{_datadir}/booster-silica-media
 %{_userunitdir}/booster-silica-media.service
@@ -82,7 +78,6 @@ ln -s ../booster-silica-media.service %{buildroot}%{_userunitdir}/user-session.t
 %{_userunitdir}/user-session.target.wants/booster-silica-media.service
 
 %files
-%defattr(-,root,root,-)
 %license COPYING.LESSER
 %attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-silica-qt5
 %attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-silica-session
