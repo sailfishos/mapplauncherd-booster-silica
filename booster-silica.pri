@@ -1,7 +1,7 @@
 
 CONFIG += link_pkgconfig
-QT += qml quick concurrent feedback dbus sql waylandclient
-PKGCONFIG += mlite5 timed-qt5 gio-2.0 glib-2.0 gmodule-2.0 gobject-2.0 applauncherd
+QT += qml quick concurrent dbus sql waylandclient
+PKGCONFIG += mlite5 timed-qt5 gio-2.0 glib-2.0 gmodule-2.0 gobject-2.0 applauncherd Qt5Feedback
 
 CONFIG += qdeclarative-boostable
 
